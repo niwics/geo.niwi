@@ -1,0 +1,162 @@
+/**
+ * Default main CSS style for Geo.
+ * @author niwi.cz
+ * @date 24.11.2014
+ */
+
+/* Google fonts */
+@import url(http://fonts.googleapis.com/css?family=Armata&subset=latin-ext,latin);
+
+/*
+ --
+   Layout
+ --
+*/
+body {
+    font-family: 'Armata', sans-serif;
+}
+#layout {
+    margin: 0 auto 1.5% auto;
+}
+#top {
+    background-color: #990000;
+}
+#logo-link {
+    display: inline-block;
+}
+#top-right {
+    display: inline-block;
+    min-height: 90px;
+    text-decoration: none; /* necessary for the inner text */
+    vertical-align: bottom;
+}
+#top-link {
+    display: block;
+    padding: 10px 0.5em;
+    font-size: 35px;
+    color: white;
+    text-decoration: none;
+}
+
+/* Menu */
+ul.menu{
+    list-style: none;
+    font-size: 0.85em;
+}
+ul.menu li {
+    display: inline-block;
+}
+ul.menu li a {
+    display: block;
+    height: 28px;
+    padding: 0 0.6em;
+    line-height: 30px;
+    border-style: solid;
+    border-color: #8b0014;
+    border-width: 2px 2px 0 2px;
+    border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    text-decoration: none;
+    background-color: #AA0000;
+    color: #CCBBBB;
+    font-weight: bold;
+}
+ul.menu li.active a {
+    background-color: #FFFAFA;
+    color: #990000;
+}
+ul.menu li a:hover {
+    background-color: white;
+    color: #990000;
+}
+ul.menu ul {
+    margin: 0 0 0 10px;
+    padding: 0;
+}
+ul.menu ul li {
+    border: none;
+}
+ul.menu ul li a {
+    color: gray;
+}
+
+
+#layout #content {
+    float: left;
+    width: 100%;
+    line-height: 1.8em;
+}
+#layout #content-inner {
+    margin: 20px 15px;
+}
+#layout #left {
+    float: left;
+    width: 174px;
+    border-right: 1px dotted gray;
+    overflow: hidden;
+}
+
+#layout #footer {
+    border-top: 1px solid #990000;
+    clear: both;
+    padding: 8px;
+    color: gray;
+    font-size: 0.8em;
+}
+#login-button {
+    display: inline-box;
+}
+#login {
+    display: none;
+}
+#login fieldset, #login.loginbox {
+     width: 300px;
+     padding: 8px;
+     background-color: #EEEEEE;
+ }
+
+/* Index page (filters) */
+#category-filter li {
+    list-style: none;
+}
+#category-filter a {
+    text-decoration: none;
+}
+#category-filter a:hover {
+    text-decoration: underline;
+}
+#category-filter .items-count {
+    color: #999999;
+    font-size: 0.9em;
+}
+
+
+/* GS Forms listing */
+table.gs-formListTable th {
+    background-color: #fff0eb;
+    border-color: #EEEEEE;
+}
+table.gs-formListTable td {
+    background-color: #fff0eb;
+    border-color: #EEEEEE;
+}
+
+/*
+ --
+   Basic page elements
+ --
+*/
+
+h1 {
+}
+
+a {
+    color: #990000;
+}
+a:hover {
+    color: black;
+}
+textarea {
+    width: 450px;
+    height: 180px;
+}
