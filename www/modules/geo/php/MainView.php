@@ -65,7 +65,7 @@ EOT;
                 Databáze je určena jako výuková pomůcka. Databáze byla podpořena projektem Specifického vysokoškolského výzkumu na VUT v Brně č. 24930. <br>
                 &copy; <a href="http://www.niwi.cz">niwi</a> <?php echo conf('copyrightYear'); ?> |
                 <a href="http://gorazd.niwi.cz" title="Redakční systém Gorazd">RS Gorazd</a> |
-                <a class="toggle-login button" rev="Skrýt přihlašovací box">Přihlášení</a>
+                <a class="toggle-login" rev="Skrýt přihlašovací box" href="">Přihlášení</a>
             </div>
             <?php
             echo $this->controller->loginBoxString;

@@ -21,6 +21,7 @@ class IndexController extends \Gorazd\Virtual\MainController
         $categoriesForm = new \Gorazd\FormsBasic\FormBuilder();
         $categoriesForm->fieldPrefix = "";
         $categoriesForm->checkDoubleSubmit = false;
+        $categoriesForm->separateSubmitButton = true;
         $categoriesForm->method = "GET";
         $categoriesForm->targetAction = "/vypis";
 
@@ -47,6 +48,23 @@ EOT;
         $categoriesForm->addHidden("andOr", "OR");
         $categoriesForm->addHtml("<ul id=\"category-filter\">" . $items . "</ul>");
         $categoriesForm->addSubmit("Zobraz vybrané");
+
+
+        $searchForm = new \Gorazd\FormsBasic\FormBuilder("search-form");
+        $searchForm->fieldPrefix = "";
+        $searchForm->checkDoubleSubmit = false;
+        $searchForm->separateSubmitButton = true;
+        $searchForm->method = "GET";
+        $searchForm->targetAction = "/vypis";
+        $searchForm->addHidden("andOr", "OR");
+        $searchForm->addInput("search-string", "Zadej slovo nebo frázi");
+        $searchForm->addHtml("Hledej v:");
+        $searchForm->addCheckbox("name", "Název", true, false);
+        $searchForm->addCheckbox("number", "Číslo znaku", true, false);
+        $searchForm->addCheckbox("measure", "Zaměření v terénu", true, false);
+        $searchForm->addCheckbox("draw", "Zakreslení do mapy", true, false);
+        $searchForm->addCheckbox("description", "Popis", true, false);
+        $searchForm->addSubmit("Zobraz vybrané");
 
         $this->customContent .= <<<EOT
         <div class="cell">

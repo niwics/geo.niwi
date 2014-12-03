@@ -14,9 +14,12 @@
 */
 body {
     font-family: 'Armata', sans-serif;
+    background-color: #332222;
 }
 #layout {
     margin: 0 auto 1.5% auto;
+    max-width: 1200px;
+    background-color: white;
 }
 #top {
     background-color: #990000;
@@ -87,7 +90,7 @@ ul.menu ul li a {
     line-height: 1.8em;
 }
 #layout #content-inner {
-    margin: 20px 15px;
+    margin: 1.4em 1em 2.2em 1em;
 }
 #layout #left {
     float: left;
@@ -97,11 +100,17 @@ ul.menu ul li a {
 }
 
 #layout #footer {
-    border-top: 1px solid #990000;
     clear: both;
-    padding: 8px;
+    padding: 1em;
+    background-color: #332222;
     color: gray;
     font-size: 0.8em;
+}
+#layout #footer a {
+    color: #CCCCCC;
+ }
+#layout #footer a:hover {
+    color: white;
 }
 #login-button {
     display: inline-box;
@@ -109,42 +118,20 @@ ul.menu ul li a {
 #login {
     display: none;
 }
+#login legend {
+    color: white;
+    font-size: 1.15em;
+    font-weight: bold;
+}
 #login fieldset, #login.loginbox {
      width: 300px;
      padding: 8px;
-     background-color: #EEEEEE;
  }
 
-/* Index page (filters) */
-#category-filter li {
-    list-style: none;
-}
-#category-filter a {
-    text-decoration: none;
-}
-#category-filter a:hover {
-    text-decoration: underline;
-}
-#category-filter .items-count {
-    color: #999999;
-    font-size: 0.9em;
-}
 
-
-/* GS Forms listing */
-table.gs-formListTable th {
-    background-color: #fff0eb;
-    border-color: #EEEEEE;
-}
-table.gs-formListTable td {
-    background-color: #fff0eb;
-    border-color: #EEEEEE;
-}
 
 /*
- --
    Basic page elements
- --
 */
 
 h1 {
@@ -159,4 +146,100 @@ a:hover {
 textarea {
     width: 450px;
     height: 180px;
+}
+
+
+
+/* Index page (filters) */
+.cell {
+    display: inline-block;
+    width: 45%;
+    vertical-align: top;
+    padding: 10px;
+}
+.cell form {
+    text-align: center;
+}
+.cell form table {
+    text-align: left;
+}
+.cell:first-of-type {
+    border-right: 4px solid #dabeba;
+}
+#category-filter li {
+    list-style: none;
+}
+#category-filter a {
+    text-decoration: none;
+}
+#category-filter a:hover {
+    text-decoration: underline;
+}
+#category-filter .items-count {
+    color: #999999;
+    font-size: 0.9em;
+}
+#search-form tr:first-of-type {
+    height: 3.6em;
+    background-color: #EEEEEE;
+}
+#search-form tr:first-of-type label {
+    padding: 0 3px;
+    font-size: 0.8em;
+    font-weight: normal;
+ }
+#search-form .star {
+    display: none;
+}
+#search-string {
+    width: 100%;
+    font-size: 1.5em;
+    border-color: #dabeba;
+}
+
+
+
+/* GS Forms listing */
+div#gs-actionLinks {
+    background-color: #F5F5F5;
+    padding: 0 3px;
+}
+table.gs-formListTable {
+    width: 100%;
+    border: 1px solid #dabeba;
+}
+table.gs-formListTable th {
+    background-color: #DA9065;
+    border-color: #dabeba;
+}
+table.gs-formListTable td {
+    padding: 0 3px;
+    border-color: #dabeba;
+    background-color: #fff9f8;
+}
+table.gs-formListTable td:first-of-type {
+     padding-left: 0.5em;
+}
+table.gs-formListTable td a {
+    text-decoration: none;
+}
+table.gs-formListTable td.category {
+    font-size: 0.8em;
+    color: #666666;
+}
+table.gs-formListTable td.main-center a {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+/* Style for small devices: right col on the bottom */
+@media (max-width: 640px) {
+    .cell {
+        display: inline-block;
+        width: 100%;
+    }
+    .cell:first-of-type {
+        border-right: none;
+    }
 }

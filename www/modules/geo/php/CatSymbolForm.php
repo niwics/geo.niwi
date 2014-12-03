@@ -1,6 +1,6 @@
 <?php
 namespace Gorazd\Geo;
-
+ 
 use \Gorazd\System as Sys;
 
 /**
@@ -47,29 +47,32 @@ class CatSymbolForm extends \Gorazd\Forms\Form
      */
     protected function prepareFields()
     {
-        $this->addIdField();
+        $this->addIdField(array("listable" => false));
         $this->addField(array(
             'name' => 'name',
             'title' => 'Název',
             'type' => 'string',
-            'maxLength' => 32,
-            'required' => true
+            'maxLength' => 48,
+            'required' => true,
+            'linkUrl' => true
         ));
         $this->addField(array(
             'name' => 'categoryId',
             'title' => 'Kategorie',
             'type' => 'int',
             'required' => true,
+            'class' => 'category',
             /* References */
             'refJoinColumn' => 'geo_category.id',
             'refDisplayColumn' => 'name'
         ));
         $this->addField(array(
             'name' => 'number',
-            'title' => 'Číslo znaku',
+            'title' => 'Číslo',
             'type' => 'string',
-            'maxLength' => 4,
-            'required' => true
+            'maxLength' => 10,
+            'required' => true,
+            'class' => 'main-center'
         ));
         $this->addField(array(
             'name' => 'standard',
@@ -117,24 +120,26 @@ class CatSymbolForm extends \Gorazd\Forms\Form
             'listable' => false
         ));
         $this->addField(array(
-            'name' => 'exampleImage',
-            'title' => 'Ukázka (obrázek)',
+            'name' => 'symbolImage',
+            'title' => 'Znak',
             'type' => 'image',
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
-            'targetDir' => '/modules/geo/images/example'
+            'targetDir' => '/modules/geo/images/symbol',
+            'class' => 'main-center'
         ));
         $this->addField(array(
-            'name' => 'symbolImage',
-            'title' => 'Znak (obrázek)',
+            'name' => 'exampleImage',
+            'title' => 'Ukázka',
             'type' => 'image',
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
-            'targetDir' => '/modules/geo/images/symbol'
+            'targetDir' => '/modules/geo/images/example',
+            'class' => 'main-center'
         ));
         $this->addField(array(
             'name' => 'measureImage',
-            'title' => 'Zaměření (obrázek)',
+            'title' => 'Zaměření',
             'type' => 'image',
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
@@ -144,7 +149,7 @@ class CatSymbolForm extends \Gorazd\Forms\Form
         ));
         $this->addField(array(
             'name' => 'drawImage',
-            'title' => 'Zakreslení (obrázek)',
+            'title' => 'Zakreslení',
             'type' => 'image',
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
@@ -154,17 +159,17 @@ class CatSymbolForm extends \Gorazd\Forms\Form
         ));
         $this->addField(array(
             'name' => 'cadastreCzText',
-            'title' => 'Řešení v katastru CZ',
+            'title' => 'Řešení v katastru CZ - text',
             'type' => 'text'
         ));
         $this->addField(array(
             'name' => 'cadastreSkText',
-            'title' => 'Řešení v katastru SK',
+            'title' => 'Řešení v katastru SK - text',
             'type' => 'text'
         ));
         $this->addField(array(
             'name' => 'cadastreCzImage',
-            'title' => 'Řešení v katastru CZ (obrázek)',
+            'title' => 'Řešení v katastru CZ',
             'type' => 'image',
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
@@ -174,7 +179,7 @@ class CatSymbolForm extends \Gorazd\Forms\Form
         ));
         $this->addField(array(
             'name' => 'cadastreSkImage',
-            'title' => 'Řešení v katastru SK (obrázek)',
+            'title' => 'Řešení v katastru SK',
             'type' => 'image',
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
