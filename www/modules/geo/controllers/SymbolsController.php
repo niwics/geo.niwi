@@ -18,7 +18,6 @@ class SymbolsController extends \Gorazd\Virtual\MainController
      */
     protected function prepareData()
     {
-        $this->customContent .= "Výpis filtrů";
         $this->form = new CatSymbolForm();
         ;
         $this->customContent .= $this->form->apply();

@@ -193,49 +193,109 @@ class CatSymbolForm extends \Gorazd\Forms\Form
     /**
      * Overwritten for generating.
      */
-//    protected function displayDetail()
-//    {
-//        // prepare all data for the template
-//        $filename = $this->rawVal("clientSurname") . " " . $this->rawVal("clientName") . " - vyš. " . $this->val("date");
-//        $fullName = $this->rawVal("clientName") . " " . $this->rawVal("clientSurname");
-//        $date = $this->val("date");
-//
-//        // Include classes
-//        require_once(ROOT_PATH.'/modules/niwi/libs/tbs/tbs_class.php'); // Load the TinyButStrong template engine
-//        require_once(ROOT_PATH.'/modules/niwi/libs/tbs/tbs_plugin_opentbs.php'); // Load the OpenTBS plugin
-//
-//        // Initialize the TBS instance
-//        $TBS = new \clsTinyButStrong; // new instance of TBS
-//        $TBS->Plugin(TBS_INSTALL, OPENTBS_PLUGIN); // load the OpenTBS plugin
-//
-//        $template = ROOT_PATH . '/modules/niwi/data/spc-template.docx';
-//        $TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8); // Also merge some [onload] automatic fields (depends of the type of document).
-//
-//        // Output the result as a downloadable file (only streaming, no data saved in the server)
-//        $TBS->Show(OPENTBS_DOWNLOAD, "result.docx"); // Also merges all [onshow] automatic fields.
-//        // Be sure that no more output is done, otherwise the download file is corrupted with extra data.
-//        exit();
-//    }
+    protected function displayDetail()
+    {
+        Sys\Env::getController()->setTitle($this->rawVal("name"), null);
+        $out = "";
+
+        $actionLinks = array();
+        if (in_array(EDIT, $this->allowedActions))
+            $actionLinks[] = '<a href="' . Sys\Env::composeUrl($this->rawVal("id") . '/' . $this->getUsedActionString(EDIT), $this->baseUrl) . '">Editovat</a>';
+        if (in_array(DELETE, $this->allowedActions))
+            $actionLinks[] = '<a href="' . Sys\Env::composeUrl($this->rawVal("id") . '/' . $this->getUsedActionString(DELETE), $this->baseUrl) . '">Smazat</a>';
+        if (count($actionLinks))
+            $out .= '<div class="right">' . implode(" | ", $actionLinks) . '</div>';
+
+        # prepare all images string for the output
+        $images = array(
+            "exampleImage" => "Ukázka znaku v terénu",
+            "symbolImage" => "Obrázek kartografického znaku",
+            "measureImage" => "Obrázek zakreslení znaku do mapy",
+            "drawImage" => "Obrázek zakreslení znaku do mapy"
+        );
+        foreach ($images as $imageName => $altText)
+        {
+            $imgStrings[$imageName] = "";
+            if ($this->getField($imageName)->imgVal())
+                $imgStrings[$imageName] = <<<EOT
+            <!--<a href= "{$this->getField($imageName)->imgVal()}" class="gsf_thumb" title="{$altText}">-->
+                <img src="{$this->getField($imageName)->imgVal()}" alt="{$altText}">
+            <!--</a>-->
+EOT;
+        }
+
+        #$moreExamples = "<a href title=\"Zobrazit další ukázky\">Další ukázky</a>";#TODO
+
+
+        $cadastreUrl = Sys\Utils::urlize($this->rawVal("name"), $this->rawVal("id"));
+
+        $out .= <<<EOT
+        <p class="top-info">
+            <span class="gray">dle</span> {$this->val("standard")}<br>
+            <span class="gray">Kategorie:</span> <strong>{$this->val("categoryId")}</strong>
+        </p>
+
+        <div class="first-box detail-box">
+            <div class="example subbox">
+                <h3>Ukázka</h3>
+                {$imgStrings['exampleImage']}
+                {$moreExamples}
+            </div>
+            <div class="description subbox">
+                <h3>Popis</h3>
+                {$this->val("description")}
+            </div>
+        </div>
+
+        <div class="second-box detail-box">
+            <div class="number subbox">
+                <h3>Číslo znaku: <strong>{$this->val("number")}</strong></h3>
+            </div>
+            <div class="symbol subbox">
+                <h3>Kartografický znak</h3>
+                {$imgStrings['symbolImage']}
+                <p>Kartografický znak je zobrazen v obecném měřítku. Kóty udávají jeho rozměry na mapě v milimetrech.</p>
+            </div>
+            <div class="subbox">
+                <h3>Umístění znaku na mapě</h3>
+                &ndash; {$this->val("mapPosition")}
+            </div>
+            <div class="subbox">
+                <h3>Orientace znaku na mapě</h3>
+                &ndash; {$this->val("mapOrientation")}
+            </div>
+        </div>
+
+        <div class="third-box detail-box">
+            <div class="measure subbox">
+                <h3>Zaměření v terénu</h3>
+                {$imgStrings['measureImage']}
+                <p>{$this->rawVal("measure")}</p>
+                <br class="clear">
+            </div>
+            <div class="draw subbox">
+                <h3>Zakreslení do mapy</h3>
+                {$imgStrings['drawImage']}
+                <p>{$this->rawVal("draw")}</p>
+                <br class="clear">
+            </div>
+            <div class="subbox">
+                <h3><a href="/katastr-nemovitosti/{$cadastreUrl}">Řešení v KN ČR a SR</a></h3>
+            </div>
+        </div>
+EOT;
+        return $out;
+    }
 
 
     /**
-     *
+     * Do not display action links in the detail.
      */
-//    protected function displayTableHeadSpecialCols()
-//    {
-//        return parent::displayTableHeadSpecialCols() . '<th class="actionButton"></th>';
-//    }
-
-    /**
-     *
-     */
-//    protected function displayRowSpecialCols()
-//    {
-//        $rowId = $this->dbData[$this->linkField];
-//        $out = parent::displayRowSpecialCols();
-//        $out .= "<td><a href=\"". Sys\Env::urlAppend(array($rowId, "generovat")) ."\" class=\"generate\"></a></td>";
-//        return $out;
-//    }
+    public function displayActionLinks()
+    {
+        if ($this->getDisplayAction() != DETAIL)
+            return parent::displayActionLinks();
+    }
 
 
     /**

@@ -196,6 +196,16 @@ textarea {
     font-size: 1.5em;
     border-color: #dabeba;
 }
+/* Style for small devices: right col on the bottom */
+@media (max-width: 640px) {
+    .cell {
+        display: inline-block;
+        width: 100%;
+    }
+    .cell:first-of-type {
+        border-right: none;
+    }
+}
 
 
 
@@ -233,13 +243,53 @@ table.gs-formListTable td.main-center a {
     text-align: center;
 }
 
-/* Style for small devices: right col on the bottom */
-@media (max-width: 640px) {
-    .cell {
-        display: inline-block;
-        width: 100%;
-    }
-    .cell:first-of-type {
-        border-right: none;
-    }
+/* GS Forms detail */
+.top-info .gray {
+    color: #AAAAAA;
+}
+
+.detail-box {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 0.8em;
+    line-height: 1.6em;
+}
+.detail-box .subbox {
+    margin: 0.4em 0.2em;
+    padding: 0.6em 0.42em 1em 0.4em;
+    background-color: #F8F8F8;
+}
+.detail-box h3 {
+    clear: both;
+    padding: 0em 0 0.4em 0;
+    color: #221111;
+}
+.detail-box img {
+    width: 90%;
+    display: block;
+    margin: auto;
+}
+
+.first-box {
+    width: 30%;
+}
+.first-box .description {
+    margin: 1em 0;
+}
+
+.second-box {
+    width: 30%;
+}
+.second-box .symbol p {
+    font-size: 0.8em;
+    line-height: 1.3em;
+    color: #666666;
+}
+
+.third-box {
+     width: 37%;
+ }
+.third-box img {
+    float: right;
+    width: 40%;
 }
