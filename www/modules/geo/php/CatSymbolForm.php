@@ -198,14 +198,6 @@ class CatSymbolForm extends \Gorazd\Forms\Form
         Sys\Env::getController()->setTitle($this->rawVal("name"), null);
         $out = "";
 
-        $actionLinks = array();
-        if (in_array(EDIT, $this->allowedActions))
-            $actionLinks[] = '<a href="' . Sys\Env::composeUrl($this->rawVal("id") . '/' . $this->getUsedActionString(EDIT), $this->baseUrl) . '">Editovat</a>';
-        if (in_array(DELETE, $this->allowedActions))
-            $actionLinks[] = '<a href="' . Sys\Env::composeUrl($this->rawVal("id") . '/' . $this->getUsedActionString(DELETE), $this->baseUrl) . '">Smazat</a>';
-        if (count($actionLinks))
-            $out .= '<div class="right">' . implode(" | ", $actionLinks) . '</div>';
-
         # prepare all images string for the output
         $images = array(
             "exampleImage" => "Ukázka znaku v terénu",
@@ -291,10 +283,23 @@ EOT;
     /**
      * Do not display action links in the detail.
      */
-    public function displayActionLinks()
+    public function renderInfoBar()
     {
-        if ($this->getDisplayAction() != DETAIL)
-            return parent::displayActionLinks();
+        if ($this->getDisplayAction() == DETAIL)
+        {
+            $actionStrings = array();
+            $editActionString = $this->renderLinkForAction(EDIT);
+            if ($editActionString)
+                $actionStrings[] = $editActionString;
+            $deleteActionString = $this->renderLinkForAction(DELETE);
+            if ($deleteActionString)
+                $actionStrings[] = $deleteActionString;
+            if (count($actionStrings))
+                return '<div id="gsf-info-bar" class="detail">' . implode(" | ", $actionStrings) . '</div>';
+            return '';
+        }
+        else    # default
+            return parent::renderInfoBar();
     }
 
 

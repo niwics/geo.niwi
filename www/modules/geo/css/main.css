@@ -210,10 +210,14 @@ textarea {
 
 
 /* GS Forms listing */
-div#gs-actionLinks {
+div#gsf-info-bar {
     background-color: #F5F5F5;
     padding: 0 3px;
 }
+div#gsf-info-bar.detail {
+    float: right;
+    background-color: transparent;
+ }
 table.gs-formListTable {
     width: 100%;
     border: 1px solid #dabeba;
