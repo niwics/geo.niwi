@@ -8,10 +8,20 @@ use \Gorazd\System as Sys;
  */
 class SymbolsController extends \Gorazd\Virtual\MainController
 {
-    /** Indicator for auto-adding Forms tails and spice */
-    public $allowFormsPatterns = true;
-    
     private $form;
+
+
+    /**
+     * May be overwritten in subclasses.
+     * The order of added patterns is important - in the same order will be tested
+     *  to match.
+     */
+    public function prepareUrlPatterns()
+    {
+        $this->addUrlPattern("znaky");
+        $this->addUrlPattern("objekty");
+        $this->prepareFormsPatterns();
+    }
 
     /**
      * Prepares data to display.

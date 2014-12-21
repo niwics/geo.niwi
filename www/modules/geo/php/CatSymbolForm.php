@@ -23,6 +23,17 @@ class CatSymbolForm extends \Gorazd\Forms\Form
 
         Sys\Env::getController()->addScript('geo');
         Sys\Env::getController()->addStyle('geo');
+
+
+        if (Sys\Env::isActualTail("znaky") or Sys\Env::isActualTail("objekty"))
+        {
+            $this->paginationLimit = false;
+            $this->orderBy = "categoryId, G.name";
+        }
+        else
+        {
+            $this->orderBy = "G.name";
+        }
         /*
         // overwrite
         $this->titleField = 'clientSurname';
@@ -123,7 +134,7 @@ class CatSymbolForm extends \Gorazd\Forms\Form
             'name' => 'symbolImage',
             'title' => 'Znak',
             'type' => 'image',
-            'thumbnails' => array('list' => array(55, 45), 'detail' => array(310, 500)),
+            'thumbnails' => array('list' => array(55, 45), 'detail' => array(310, 500), 'grid' => array(140, 140, true)),
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
             'targetDir' => '/modules/geo/images/symbol',
@@ -133,7 +144,7 @@ class CatSymbolForm extends \Gorazd\Forms\Form
             'name' => 'exampleImage',
             'title' => 'Ukázka',
             'type' => 'image',
-            'thumbnails' => array('list' => array(55, 45), 'detail' => array(310, 500)),
+            'thumbnails' => array('list' => array(55, 45), 'detail' => array(310, 500), 'grid' => array(140, 140, true)),
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
             'targetDir' => '/modules/geo/images/example',
@@ -195,10 +206,64 @@ class CatSymbolForm extends \Gorazd\Forms\Form
 
 
     /**
+     * Hanldes list action - displays table of items.
+     */
+    protected function displayList()
+    {
+        if (Sys\Env::isActualTail("znaky"))
+        {
+            Sys\Env::getController()->setTitle('Přehled znaků', null);
+            return $this->displayExamplesList(true);
+        }
+        elseif (Sys\Env::isActualTail("objekty"))
+        {
+            Sys\Env::getController()->setTitle('Přehled objektů', null);
+            return $this->displayExamplesList(false);
+        }
+        else
+            return parent::displayList();
+    }
+
+
+    /**
+     * Hanldes list action - displays table of items.
+     */
+    protected function displayExamplesList($areSymbols)
+    {
+        $fieldName = $areSymbols ? "symbolImage" : "exampleImage";
+        $out = "";
+
+        // cycle for rows
+        $previousCategory = null;
+        while ($this->fetchNextRow())
+        {
+            if ($previousCategory != $this->dbData["categoryId"])
+            {
+                $out .= '<h2>'.$this->dbData["categoryId_REFVAL"].'</h2>';
+                $previousCategory = $this->dbData["categoryId"];
+            }
+            $detailLink = $this->getDetailUrl($this->dbData);
+            $imgSrc = $this->getField($fieldName)->imgVal(false, "grid");
+            $title = $this->rawVal("name");
+            $out .= <<<EOT
+            <a href="{$detailLink}" title="{$title}">
+                <img src="{$imgSrc}" alt="' . $this->title . '"><br>
+                {$title}
+            </a>
+EOT;
+        }
+        return ine($out, '<div id="examples">', '</div>');
+    }
+
+
+    /**
      * Overwritten for generating.
      */
     protected function displayDetail()
     {
+        if (!$this->_result or $this->_result->num_rows == 0)
+            return "";
+
         Sys\Env::getController()->setTitle($this->rawVal("name"), null);
         $out = "";
 

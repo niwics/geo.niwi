@@ -68,7 +68,7 @@ ul.menu li a {
     -moz-border-radius: 5px 5px 0 0;
     text-decoration: none;
     background-color: #AA0000;
-    color: #CCBBBB;
+    color: #DDCCCC;
     font-weight: bold;
 }
 ul.menu li.active a {
@@ -203,6 +203,17 @@ textarea {
     font-size: 1.5em;
     border-color: #dabeba;
 }
+.fb-div .content-cell {
+    width: 50%;
+}
+
+hr {
+    border-top: 4px solid #dabeba;
+}
+.cell.bottom {
+    font-size: 0.8em;
+    line-height: 1.3em;
+}
 /* Style for small devices: right col on the bottom */
 @media (max-width: 640px) {
     .cell {
@@ -252,6 +263,24 @@ table.gs-formListTable td.main-center a {
     display: block;
     width: 100%;
     text-align: center;
+}
+
+/* GS Forms listing - examples */
+#examples a {
+    display: inline-block;
+    padding: 3px;
+    border: 2px solid #bbcb8b;
+    border-bottom-right-radius: 1em;
+    text-align: center;
+    font-size: 0.8em;
+    text-decoration: none;
+    color: #222222;
+}
+#examples a:hover {
+    background-color: #bbcb8b;
+}
+#examples a img {
+    margin: auto;
 }
 
 /* GS Forms detail */
