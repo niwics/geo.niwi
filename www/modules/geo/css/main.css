@@ -7,6 +7,13 @@
 /* Google fonts */
 @import url(http://fonts.googleapis.com/css?family=Armata&subset=latin-ext,latin);
 
+@media print{
+    @page {size: landscape}
+    html, body {
+        height: 100%;
+    }
+}
+
 /*
  --
    Layout

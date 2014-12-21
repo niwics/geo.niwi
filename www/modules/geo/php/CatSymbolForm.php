@@ -123,6 +123,7 @@ class CatSymbolForm extends \Gorazd\Forms\Form
             'name' => 'symbolImage',
             'title' => 'Znak',
             'type' => 'image',
+            'thumbnails' => array('list' => array(55, 45), 'detail' => array(310, 500)),
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
             'targetDir' => '/modules/geo/images/symbol',
@@ -132,6 +133,7 @@ class CatSymbolForm extends \Gorazd\Forms\Form
             'name' => 'exampleImage',
             'title' => 'Ukázka',
             'type' => 'image',
+            'thumbnails' => array('list' => array(55, 45), 'detail' => array(310, 500)),
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
             'targetDir' => '/modules/geo/images/example',
@@ -141,6 +143,7 @@ class CatSymbolForm extends \Gorazd\Forms\Form
             'name' => 'measureImage',
             'title' => 'Zaměření',
             'type' => 'image',
+            'thumbnails' => array('detail' => array(180, 220)),
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
             'targetDir' => '/modules/geo/images/measure',
@@ -151,6 +154,7 @@ class CatSymbolForm extends \Gorazd\Forms\Form
             'name' => 'drawImage',
             'title' => 'Zakreslení',
             'type' => 'image',
+            'thumbnails' => array('detail' => array(180, 220)),
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
             'targetDir' => '/modules/geo/images/draw',
@@ -208,7 +212,7 @@ class CatSymbolForm extends \Gorazd\Forms\Form
         foreach ($images as $imageName => $altText)
         {
             $imgStrings[$imageName] = "";
-            if ($this->getField($imageName)->imgVal())
+            if ($this->getField($imageName)->imgVal())  # uncommented link breaks the responsivity of image
                 $imgStrings[$imageName] = <<<EOT
             <!--<a href= "{$this->getField($imageName)->imgVal()}" class="gsf_thumb" title="{$altText}">-->
                 <img src="{$this->getField($imageName)->imgVal()}" alt="{$altText}">
