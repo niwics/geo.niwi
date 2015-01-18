@@ -80,14 +80,11 @@ EOT;
         $filterItems = $signItems = $exampleItems = "";
         foreach ($this->getCategories() as $row)
         {
-            $countString = Sys\Utils::wordForm($row['itemsCount'], array("značka", "značky", "značek"), false);
             $filterItems .= <<<EOT
         <li>
             <input type="checkbox" class="gsfv-categoryId" name="gsfv-categoryId[]" value="{$row['id']}">
             <a href="/{$link}?andOr=AND&gsfo-categoryId[]=EQ&gsfv-categoryId[]={$row['id']}">{$row['name']}</a>
 EOT;
-            if ($link == 'vypis')
-                $filterItems .= ' <span class="items-count">(<b>' . $row['itemsCount'] . '</b> '. $countString . ')</span>';
         }
         $form->addHidden("andOr", "OR");
         $form->addHtml("<ul id=\"category-filter\">" . $filterItems . "</ul>");

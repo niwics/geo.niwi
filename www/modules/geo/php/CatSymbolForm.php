@@ -1,6 +1,6 @@
 <?php
 namespace Gorazd\Geo;
- 
+
 use \Gorazd\System as Sys;
 
 /**
@@ -126,7 +126,7 @@ class CatSymbolForm extends \Gorazd\Forms\Form
             'name' => 'symbolImage',
             'title' => 'Znak',
             'type' => 'image',
-            'thumbnails' => array('list' => array(55, 45), 'detail' => array(310, 500), 'grid' => array(140, 140, true)),
+            'thumbnails' => array('list' => array(65, 65), 'detail' => array(310, 500), 'grid' => array(140, 180, true)),
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
             'targetDir' => '/modules/geo/images/symbol',
@@ -136,7 +136,7 @@ class CatSymbolForm extends \Gorazd\Forms\Form
             'name' => 'exampleImage',
             'title' => 'Ukázka',
             'type' => 'image',
-            'thumbnails' => array('list' => array(55, 45), 'detail' => array(310, 500), 'grid' => array(140, 140, true)),
+            'thumbnails' => array('list' => array(50, 65, true), 'detail' => array(310, 500), 'grid' => array(140, 180, true)),
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
             'targetDir' => '/modules/geo/images/example',
@@ -178,6 +178,7 @@ class CatSymbolForm extends \Gorazd\Forms\Form
             'name' => 'cadastreCzImage',
             'title' => 'Řešení v katastru CZ',
             'type' => 'image',
+            'thumbnails' => array('detail' => array(350, 350)),
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
             'targetDir' => '/modules/geo/images/cadastre-cz',
@@ -188,6 +189,7 @@ class CatSymbolForm extends \Gorazd\Forms\Form
             'name' => 'cadastreSkImage',
             'title' => 'Řešení v katastru SK',
             'type' => 'image',
+            'thumbnails' => array('detail' => array(350, 350)),
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
             'targetDir' => '/modules/geo/images/cadastre-sk',
@@ -237,10 +239,11 @@ class CatSymbolForm extends \Gorazd\Forms\Form
             $detailLink = $this->getDetailUrl($this->dbData);
             $imgSrc = $this->getField($fieldName)->imgVal(false, "grid");
             $title = $this->rawVal("name");
+            $titleDiv = ine($title, '<div class="name">', '</div>');
             $out .= <<<EOT
             <a href="{$detailLink}" title="{$title}">
-                <img src="{$imgSrc}" alt="' . $this->title . '"><br>
-                {$title}
+                <img src="{$imgSrc}" alt="' . $this->title . '">
+                {$titleDiv}
             </a>
 EOT;
         }

@@ -171,6 +171,7 @@ textarea {
 }
 #category-filter a {
     text-decoration: none;
+    font-size: 0.95em;
 }
 #category-filter a:hover {
     text-decoration: underline;
@@ -232,6 +233,7 @@ div#gsf-info-bar.detail {
 table.gs-formListTable {
     width: 100%;
     border: 1px solid #dabeba;
+    line-height: 1em;
 }
 table.gs-formListTable th {
     background-color: #DA9065;
@@ -261,6 +263,8 @@ table.gs-formListTable td.main-center a {
 /* GS Forms listing - examples */
 #examples a {
     display: inline-block;
+    width: 150px;
+    height: 230px;
     padding: 3px;
     border: 2px solid #bbcb8b;
     border-bottom-right-radius: 1em;
@@ -268,6 +272,8 @@ table.gs-formListTable td.main-center a {
     font-size: 0.8em;
     text-decoration: none;
     color: #222222;
+    line-height: 1.4em;
+    overflow: hidden;
 }
 #examples a:hover {
     background-color: #bbcb8b;
@@ -333,9 +339,7 @@ table.gs-formListTable td.main-center a {
     width: auto;
 }
 
-#discussion {
-    border-top: 2px solid #F8F8F8;
-}
+
 .comment {
     padding: 0;
 }

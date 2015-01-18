@@ -35,10 +35,10 @@ class CadastreController extends \Gorazd\Virtual\MainController
 
         $czImage = "";
         if ($data['cadastreCzImage'])
-            $czImage = "<img src=\"" . Sys\Utils::url(ROOT_URL, '/images/geo/cadastre-cz', $data['cadastreCzImage']) . "\" alt=\"Zakreslení v katastru nemovitostí ČR\">";
+            $czImage = "<img src=\"" . Sys\Utils::url(ROOT_URL, '/images/geo/cadastre-cz/detail', $data['cadastreCzImage']) . "\" alt=\"Zakreslení v katastru nemovitostí ČR\" class=\"cadastre\">";
         $skImage = "";
         if ($data['cadastreSkImage'])
-            $skImage = "<img src=\"" . Sys\Utils::url(ROOT_URL, '/images/geo/cadastre-sk', $data['cadastreSkImage']) . "\" alt=\"Zakreslení v katastru nemovitostí SR\">";
+            $skImage = "<img src=\"" . Sys\Utils::url(ROOT_URL, '/images/geo/cadastre-sk/detail', $data['cadastreSkImage']) . "\" alt=\"Zakreslení v katastru nemovitostí SR\" class=\"cadastre\">";
 
         $out = <<<EOT
             <h2>Řešení v katastru nemovitostí České republiky</h2>
