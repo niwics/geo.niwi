@@ -327,7 +327,7 @@ EOT;
 
         if (!$this->printStyle)
         {
-            $discussionForm = new \Gorazd\Discussion\Discussion($this->rawVal('id'), '', 'geo_symbolComment');
+            $discussionForm = new SymbolDiscussion($this->rawVal('id'), '', 'geo_symbolComment');
             $discussionForm->formFirst = false;
             $discussionForm->paginationLimit = false;
             $discussionForm->authorLinks = false;
@@ -462,5 +462,29 @@ EOT;
         if (Sys\Env::$user->getPermission() < self::ADMIN_PERMISSION)
             $this->allowedActions = array_diff($this->allowedActions, array(INSERT, EDIT, DELETE));
         return true;
+    }
+}
+
+
+class SymbolDiscussion extends \Gorazd\Discussion\Discussion
+{
+    /**
+     *
+     */
+    protected function sendMails()
+    {
+        $url = Sys\Env::$url;
+        $author = '<strong>' . (Sys\Env::$user->isLogged() ? Sys\Env::$user->username : $_POST['gsf-author']) . '</strong>';
+        $title = ine($_POST['gsf-title'], '<h2>', '</h2>');
+        $content = ine($_POST['gsf-content'], '<p>', '</p>');
+        $msg = <<<EOT
+<p style="font-size: 0.8em">V diskuzi na <a href="{$url}" title="Diskuze">{$url}</a> přibyl nový komentář.</p>
+
+Autor: {$author}<br />
+{$title}
+{$content}
+EOT;
+
+        return Sys\Utils::sendMail('miradrda@volny.cz', 'Nový příspěvek v diskuzi', $msg, Sys\Env::$systemMail, true, null, false);
     }
 }
