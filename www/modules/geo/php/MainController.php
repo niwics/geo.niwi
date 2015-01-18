@@ -20,6 +20,7 @@ class MainController extends Sys\Controller
     protected final function prepareMainData()
     {
         $this->addStyle('main', 'geo', 1);
+        $this->addStyle('print', 'geo', 1, 'print');
         $this->addScript('main', 'geo');
         $this->customContent .= '';
     }

@@ -7,13 +7,6 @@
 /* Google fonts */
 @import url(http://fonts.googleapis.com/css?family=Armata&subset=latin-ext,latin);
 
-@media print{
-    @page {size: landscape}
-    html, body {
-        height: 100%;
-    }
-}
-
 /*
  --
    Layout
@@ -287,6 +280,12 @@ table.gs-formListTable td.main-center a {
 .top-info .gray {
     color: #AAAAAA;
 }
+#gsf-action-print {
+    background: url('/images/system/icons/printer.png') no-repeat right;
+}
+#gsf-action-normal {
+    background: url('/images/system/icons/monitor.png') no-repeat right;
+}
 
 .detail-box {
     display: inline-block;
@@ -299,10 +298,10 @@ table.gs-formListTable td.main-center a {
     padding: 0.6em 0.42em 1em 0.4em;
     background-color: #F8F8F8;
 }
-.detail-box h3 {
-    clear: both;
+.detail-box h2 {
     padding: 0em 0 0.4em 0;
     color: #221111;
+    font-size: 1.1em;
 }
 .detail-box img {
     width: 90%;
@@ -320,7 +319,7 @@ table.gs-formListTable td.main-center a {
 .second-box {
     width: 30%;
 }
-.second-box .symbol p {
+.detail-box .note {
     font-size: 0.8em;
     line-height: 1.3em;
     color: #666666;
@@ -329,7 +328,7 @@ table.gs-formListTable td.main-center a {
 .third-box {
      width: 37%;
  }
-.third-box img {
+.detail-box .measure img, .detail-box .draw img {
     float: right;
-    width: 40%;
+    width: auto;
 }

@@ -20,6 +20,7 @@ class SymbolsController extends \Gorazd\Virtual\MainController
     {
         $this->addUrlPattern("znaky");
         $this->addUrlPattern("objekty");
+        $this->addUrlPattern(true, CatSymbolForm::PRINT_URL_TAIL);
         $this->prepareFormsPatterns();
     }
 

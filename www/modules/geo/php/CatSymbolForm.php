@@ -13,6 +13,9 @@ class CatSymbolForm extends \Gorazd\Forms\Form
      * Permission level for editing places.
      */
     const ADMIN_PERMISSION = 3;
+    const PRINT_URL_TAIL = 'tiskova-verze';
+
+    private $printStyle = false;
 
     /**
      * Class constructor.
@@ -21,8 +24,12 @@ class CatSymbolForm extends \Gorazd\Forms\Form
     {
         parent::__construct('geo_symbol');
 
-        Sys\Env::getController()->addScript('geo');
-        Sys\Env::getController()->addStyle('geo');
+        if (Sys\Env::isActualTail(self::PRINT_URL_TAIL))
+        {
+            $this->printStyle = true;
+            Sys\Env::getController()->addStyle('print', 'system', 2);
+            Sys\Env::getController()->addStyle('print', null, 2);
+        }
 
 
         if (Sys\Env::isActualTail("znaky") or Sys\Env::isActualTail("objekty"))
@@ -34,21 +41,6 @@ class CatSymbolForm extends \Gorazd\Forms\Form
         {
             $this->orderBy = "G.name";
         }
-        /*
-        // overwrite
-        $this->titleField = 'clientSurname';
-        $this->defaultSpiceAction = EDIT;
-        $this->setOrderBy('date DESC');
-        // fields aggregates
-        foreach (self::$options as $option => $_dummy)
-            $this->fieldAggregates[$option] = $option . 'Select';
-
-        // add help texts to the JS
-        $arrayForJs = array();
-        foreach (array_values(self::$options) as $oneFieldOptions)
-            $arrayForJs[] = array_values($oneFieldOptions);
-        Sys\Env::getController()->appendJs("var spc_options = " . json_encode($arrayForJs) . ";\n");
-        */
         $this->prepareFields();
     }
 
@@ -289,62 +281,124 @@ EOT;
 
 
         $cadastreUrl = Sys\Utils::urlize($this->rawVal("name"), $this->rawVal("id"));
-
-        $out .= <<<EOT
-        <p class="top-info">
-            <span class="gray">dle</span> {$this->val("standard")}<br>
-            <span class="gray">Kategorie:</span> <strong>{$this->val("categoryId")}</strong>
-        </p>
-
-        <div class="first-box detail-box">
-            <div class="example subbox">
-                <h3>Ukázka</h3>
-                {$imgStrings['exampleImage']}
-                {$moreExamples}
-            </div>
-            <div class="description subbox">
-                <h3>Popis</h3>
-                {$this->val("description")}
-            </div>
-        </div>
-
-        <div class="second-box detail-box">
-            <div class="number subbox">
-                <h3>Číslo znaku: <strong>{$this->val("number")}</strong></h3>
-            </div>
-            <div class="symbol subbox">
-                <h3>Kartografický znak</h3>
-                {$imgStrings['symbolImage']}
-                <p>Kartografický znak je zobrazen v obecném měřítku. Kóty udávají jeho rozměry na mapě v milimetrech.</p>
-            </div>
-            <div class="subbox">
-                <h3>Umístění znaku na mapě</h3>
-                &ndash; {$this->val("mapPosition")}
-            </div>
-            <div class="subbox">
-                <h3>Orientace znaku na mapě</h3>
-                &ndash; {$this->val("mapOrientation")}
-            </div>
-        </div>
-
-        <div class="third-box detail-box">
-            <div class="measure subbox">
-                <h3>Zaměření v terénu</h3>
-                {$imgStrings['measureImage']}
-                <p>{$this->rawVal("measure")}</p>
-                <br class="clear">
-            </div>
-            <div class="draw subbox">
-                <h3>Zakreslení do mapy</h3>
-                {$imgStrings['drawImage']}
-                <p>{$this->rawVal("draw")}</p>
-                <br class="clear">
-            </div>
-            <div class="subbox">
-                <h3><a href="/katastr-nemovitosti/{$cadastreUrl}">Řešení v KN ČR a SR</a></h3>
-            </div>
+        $standardString = "<span class=\"gray\">dle</span> <strong>{$this->val("standard")}</strong>";
+        $categoryString = "<strong>{$this->val('categoryId')}</strong>";
+        $exampleString = <<<EOT
+    <div class="example subbox">
+        <h2>Ukázka</h2>
+        {$imgStrings['exampleImage']}
+        {$moreExamples}
+    </div>
+EOT;
+        $descriptionString = <<<EOT
+    <div class="description subbox">
+        <h2>Popis</h2>
+        {$this->val("description")}
+    </div>
+EOT;
+        $symbolBoxString = <<<EOT
+        <div class="symbol subbox">
+            <h2>Kartografický znak</h2>
+            {$imgStrings['symbolImage']}
+            <p class="note">Kartografický znak je zobrazen v obecném měřítku. Kóty udávají jeho rozměry na mapě v milimetrech.</p>
         </div>
 EOT;
+        $mapPositionString = "<h2>Umístění znaku na mapě</h2>\n&ndash; {$this->val("mapPosition")}";
+        $mapOrientationString = "<h2>Orientace znaku na mapě</h2>\n&ndash; {$this->val("mapOrientation")}";
+        $measureString = <<<EOT
+    <div class="measure subbox">
+        {$imgStrings['measureImage']}
+        <h2>Zaměření v terénu</h2>
+        <p>{$this->rawVal('measure')}</p>
+        <br class="clear">
+    </div>
+EOT;
+        $drawString = <<<EOT
+    <div class="draw subbox">
+        <h2>Zakreslení do mapy</h2>
+        {$imgStrings['drawImage']}
+        <p>{$this->rawVal("draw")}</p>
+        <br class="clear">
+    </div>
+EOT;
+
+        if (!$this->printStyle)
+        {
+            $out .= <<<EOT
+<p class="top-info">
+    {$standardString}<br>
+    <span class="gray">Kategorie:</span> {$categoryString}
+</p>
+
+<div class="first-box detail-box">
+    {$exampleString}
+    {$descriptionString}
+</div>
+
+<div class="second-box detail-box">
+    <div class="number subbox">
+        <h2>Číslo znaku: <strong>{$this->val("number")}</strong></h2>
+    </div>
+    {$symbolBoxString}
+    <div class="subbox">
+        {$mapPositionString}
+    </div>
+    <div class="subbox">
+        {$mapOrientationString}
+    </div>
+</div>
+
+<div class="third-box detail-box">
+    {$measureString}
+    {$drawString}
+    <div class="subbox">
+        <h2><a href="/katastr-nemovitosti/{$cadastreUrl}">Řešení v KN ČR a SR</a></h2>
+    </div>
+</div>
+EOT;
+        }
+        else
+        {
+            $cadastreCzText = $this->rawVal('cadastreCzText');
+            if (!$cadastreCzText)
+                $cadastreCzText = "Popis nezadán.";
+            $cadastreSkText = $this->rawVal('cadastreSkText');
+            if (!$cadastreSkText)
+                $cadastreSkText = "Popis nezadán.";
+
+            # print style
+            $out .= <<<EOT
+
+<div class="first-box detail-box">
+    <div class="subbox">
+        <span class="gray">Číslo znaku:</span> <strong>{$this->val("number")}</strong><br>
+        {$standardString}
+    </div>
+    {$symbolBoxString}
+    <div class="subbox">
+        {$mapPositionString}
+        {$mapOrientationString}
+    </div>
+    {$measureString}
+</div>
+
+<div class="second-box detail-box">
+    <div class="subbox">
+        <span class="gray">Kategorie:</span><br>{$categoryString}
+    </div>
+    {$exampleString}
+    {$descriptionString}
+    {$drawString}
+    <div class="subbox">
+        <h2>Řešení v katastru nemovitostí ČR</h2>
+        <p>{$cadastreCzText}</p>
+        <h2>Řešení v katastri nehnuteľností SR</h2>
+        <p>{$cadastreSkText}</p>
+    </div>
+</div>
+EOT;
+
+        }
         return $out;
     }
 
@@ -357,6 +411,11 @@ EOT;
         if ($this->getDisplayAction() == DETAIL)
         {
             $actionStrings = array();
+            # printable/normal links
+            if (Sys\Env::isActualTail(self::PRINT_URL_TAIL))
+                $actionStrings[] = '<a href="'. Sys\Env::urlAppend(Sys\Env::$spice) .'" title="Normální verze stránky znaku" id="gsf-action-normal">Normální verze</a>';
+            else
+                $actionStrings[] = '<a href="'. Sys\Env::urlAppend(array(Sys\Env::$spice, self::PRINT_URL_TAIL)) .'" title="Tisková verze stránky znaku" id="gsf-action-print">Tisková verze</a>';
             $editActionString = $this->renderLinkForAction(EDIT);
             if ($editActionString)
                 $actionStrings[] = $editActionString;
