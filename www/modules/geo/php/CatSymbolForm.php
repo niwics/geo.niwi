@@ -178,7 +178,7 @@ class CatSymbolForm extends \Gorazd\Forms\Form
             'name' => 'cadastreCzImage',
             'title' => 'Řešení v katastru CZ',
             'type' => 'image',
-            'thumbnails' => array('detail' => array(350, 350)),
+            'thumbnails' => array('detail' => array(250, 250)),
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
             'targetDir' => '/modules/geo/images/cadastre-cz',
@@ -189,7 +189,7 @@ class CatSymbolForm extends \Gorazd\Forms\Form
             'name' => 'cadastreSkImage',
             'title' => 'Řešení v katastru SK',
             'type' => 'image',
-            'thumbnails' => array('detail' => array(350, 350)),
+            'thumbnails' => array('detail' => array(250, 250)),
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
             'targetDir' => '/modules/geo/images/cadastre-sk',
@@ -485,6 +485,6 @@ Autor: {$author}<br />
 {$content}
 EOT;
 
-        return Sys\Utils::sendMail('miradrda@volny.cz', 'Nový příspěvek v diskuzi', $msg, Sys\Env::$systemMail, true, null, false);
+        return Sys\Utils::sendMail('PavlaAndelova@seznam.cz', 'Nový příspěvek v diskuzi', $msg, Sys\Env::$systemMail, true, null, false);
     }
 }

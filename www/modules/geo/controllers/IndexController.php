@@ -48,7 +48,7 @@ class IndexController extends \Gorazd\Virtual\MainController
         foreach ($this->findMostVisitedSymbols() as $symbolData)
         {
             $mostVisitedString .= <<<EOT
-            <a href="/vypis/{$symbolData['id']}" title="{$symbolData['name']}">
+            <a href="/vypis/{$symbolData['id']}" title="{$symbolData['name']} - {$symbolData['visits']}&times;"">
                 <img src="/images/geo/example/index/{$symbolData['exampleImage']}" alt="{$symbolData['name']}">
             </a>
 EOT;
@@ -139,7 +139,7 @@ EOT;
     protected function findMostVisitedSymbols()
     {
         # load from DB
-        $res = Sys\Db::select('tailAndSpice', 'g.id', 'g.name', 'g.exampleImage')
+        $res = Sys\Db::select('tailAndSpice', 'g.id', 'g.name', 'g.exampleImage', array('COUNT(*) AS visits'))
             ->from("visitPage", 'v')
             ->join('geo_symbol', 'g', 'v.tailAndSpice = g.id')
             ->where("menuItemId = (SELECT id FROM menuItem WHERE websiteId = ". Sys\Env::$websiteId ." AND url = 'vypis') AND `timestamp` >= DATE_SUB(NOW() , INTERVAL 3 MONTH )")
