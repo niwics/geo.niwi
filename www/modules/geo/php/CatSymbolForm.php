@@ -324,6 +324,13 @@ EOT;
 
         if (!$this->printStyle)
         {
+            $discussionForm = new \Gorazd\Discussion\Discussion($this->rawVal('id'), '', 'geo_symbolComment');
+            $discussionForm->formFirst = false;
+            $discussionForm->paginationLimit = false;
+            $discussionForm->authorLinks = false;
+            $discussionForm->handleActions();
+            $discussion = '<h2 id="discussion">Diskuze k tomuto znaku</h2>' . $discussionForm;
+
             $out .= <<<EOT
 <p class="top-info">
     {$standardString}<br>
@@ -355,6 +362,7 @@ EOT;
         <h2><a href="/katastr-nemovitosti/{$cadastreUrl}">Řešení v KN ČR a SR</a></h2>
     </div>
 </div>
+{$discussion}
 EOT;
         }
         else

@@ -293,7 +293,7 @@ table.gs-formListTable td.main-center a {
     font-size: 0.8em;
     line-height: 1.6em;
 }
-.detail-box .subbox {
+.detail-box .subbox, .comment, form.gsfb-form fieldset {
     margin: 0.4em 0.2em;
     padding: 0.6em 0.42em 1em 0.4em;
     background-color: #F8F8F8;
@@ -331,4 +331,17 @@ table.gs-formListTable td.main-center a {
 .detail-box .measure img, .detail-box .draw img {
     float: right;
     width: auto;
+}
+
+#discussion {
+    border-top: 2px solid #F8F8F8;
+}
+.comment {
+    padding: 0;
+}
+.comment .header, .comment .content {
+    padding: 0.3em 0.42em 0.5em 0.4em;
+}
+.comment .header {
+    background-color: rgb(247, 255, 216);
 }
