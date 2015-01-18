@@ -134,7 +134,9 @@ ul.menu ul li a {
    Basic page elements
 */
 
-h1 {
+h2 {
+    margin: 0.6em 0 0.5em 0;
+    padding: 0;
 }
 
 a {
@@ -153,7 +155,7 @@ textarea {
 /* Index page (filters) */
 .cell {
     display: inline-block;
-    width: 45%;
+    width: 47%;
     vertical-align: top;
     padding: 10px;
 }
@@ -180,23 +182,55 @@ textarea {
     color: #999999;
     font-size: 0.9em;
 }
-#search-form tr:first-of-type {
-    height: 3.6em;
-    background-color: #EEEEEE;
+
+#search-form .gsf-field-box {
+    display: inline-block;
+    text-align: right;
+    font-size: 0.8em;
 }
-#search-form tr:first-of-type label {
+#search-form .gsf-field-box label {
+    margin: 0 0 0 0em;
+    line-height: 1.8em;
+}
+
+#search-form .gsf-field-box:first-of-type {
+    width: 100%;
+    line-height: 3.5em;
+    background-color: #EEEEEE;
+    font-size: 1em;
+}
+#search-form .gsf-field-box:first-of-type label {
     padding: 0 3px;
     font-size: 0.8em;
     font-weight: normal;
  }
-#search-form .star {
-    display: none;
-}
 #search-string {
-    width: 100%;
     font-size: 1.5em;
     border-color: #dabeba;
 }
+
+#search-form .star {
+    display: none;
+}
+#search-form-submit {
+    display: block;
+    clear: both;
+}
+
+#most-visited-heading {
+    font-size: 0.85em;
+}
+#most-visited {
+    line-height: 1em;
+}
+#most-visited a {
+    display: inline-block;
+}
+#most-visited a:hover img {
+    -webkit-filter: drop-shadow(4px 4px 5px rgba(0,0,0,0.8));
+    filter: drop-shadow(4px 4px 5spx rgba(0,0,0,0.8));
+}
+
 .fb-div .content-cell {
     width: 50%;
 }

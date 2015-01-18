@@ -136,7 +136,7 @@ class CatSymbolForm extends \Gorazd\Forms\Form
             'name' => 'exampleImage',
             'title' => 'Ukázka',
             'type' => 'image',
-            'thumbnails' => array('list' => array(50, 65, true), 'detail' => array(310, 500), 'grid' => array(140, 180, true)),
+            'thumbnails' => array('list' => array(50, 65, true), 'detail' => array(310, 500), 'grid' => array(140, 180, true), 'index' => array(60, 90, true)),
             'maxLength' => 255,
             'targetWeb' => ROOT_URL,
             'targetDir' => '/modules/geo/images/example',
@@ -242,7 +242,7 @@ class CatSymbolForm extends \Gorazd\Forms\Form
             $titleDiv = ine($title, '<div class="name">', '</div>');
             $out .= <<<EOT
             <a href="{$detailLink}" title="{$title}">
-                <img src="{$imgSrc}" alt="' . $this->title . '">
+                <img src="{$imgSrc}" alt="{$this->title}">
                 {$titleDiv}
             </a>
 EOT;
