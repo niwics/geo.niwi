@@ -139,28 +139,21 @@ EOT;
     protected function findMostVisitedSymbols()
     {
         # load from DB
-        $res = Sys\Db::select('tailAndSpice', 'g.id', 'g.name', 'g.exampleImage', array('COUNT(*) AS visits'))
-            ->from("visitPage", 'v')
-            ->join('geo_symbol', 'g', 'v.tailAndSpice = g.id')
-            ->where("menuItemId = (SELECT id FROM menuItem WHERE websiteId = ". Sys\Env::$websiteId ." AND url = 'vypis') AND `timestamp` >= DATE_SUB(NOW() , INTERVAL 3 MONTH )")
-            ->groupBy("tailAndSpice")
-            ->orderBy("COUNT(*) DESC")
+        $res = Sys\Db::select('g.id', 'g.name', 'g.exampleImage', array('SUM(visits) AS visits'))
+            ->from("geo_symbolVisit", 'v')
+            ->join('geo_symbol', 'g', 'v.symbolId= g.id')
+            ->where("v.date >= DATE_SUB(NOW() , INTERVAL 3 MONTH )")
+            ->groupBy("g.id")
+            ->orderBy("SUM(visits) DESC, v.`date` DESC")
+            ->limit(8)
             ->query();
         if (!$res)
             return err('Chyba při SQL dotazu', 3);
 
-        $symbolsData = array();
-        while ($row = $res->fetch_assoc())
-        {
-            if (ctype_digit($row['tailAndSpice']))   # count the detail only - throw all URL tails
-            {
-                $symbolsData[] = $row;
-                # limit to 8 last symbols only
-                if (count($symbolsData) == 8)
-                    break;
-            }
-        }
-        return $symbolsData;
+        $rows = [];
+        while ($row = $res->fetch_array())
+            $rows[] = $row;
+        return $rows;
     }
 }
 

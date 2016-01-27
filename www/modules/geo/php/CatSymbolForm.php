@@ -260,6 +260,16 @@ EOT;
             return "";
 
         Sys\Env::getController()->setTitle($this->rawVal("name"), null);
+
+        // set the visit
+        $res = Sys\Db::query(
+            "INSERT INTO geo_symbolVisit (`date`, symbolId, visits)
+             VALUES('". date('Y-m-d') ."', ". $this->rawVal("id") .", 1)
+             ON DUPLICATE KEY UPDATE visits = visits+1"
+        );
+        if (!$res)
+            return "";
+
         $out = "";
 
         # prepare all images string for the output
