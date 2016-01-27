@@ -228,7 +228,7 @@ textarea {
 }
 #most-visited a:hover img {
     -webkit-filter: drop-shadow(4px 4px 5px rgba(0,0,0,0.8));
-    filter: drop-shadow(4px 4px 5spx rgba(0,0,0,0.8));
+    filter: drop-shadow(4px 4px 5px rgba(0,0,0,0.8));
 }
 
 .fb-div .content-cell {

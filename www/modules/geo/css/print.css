@@ -1,0 +1,29 @@
+/**
+ * Default main CSS print style for Geo.
+ * @author niwi.cz
+ * @date 17.1.2015
+ */
+
+body {
+    background: none;
+}
+
+h1 {
+    padding: 0;
+    font-size: 1.2em;
+}
+
+#layout #content {
+    float: none;
+}
+#layout #content-inner {
+    margin: 0;
+}
+
+
+.detail-box .subbox {
+    margin: 0.4em 0.2em;
+    padding: 0.6em 0.42em 1em 0.4em;
+    border: 2px solid #F8F8F8;
+    background: none;
+}
