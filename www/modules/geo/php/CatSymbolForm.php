@@ -242,7 +242,7 @@ class CatSymbolForm extends \Gorazd\Forms\Form
             $titleDiv = ine($title, '<div class="name">', '</div>');
             $out .= <<<EOT
             <a href="{$detailLink}" title="{$title}">
-                <img src="{$imgSrc}" alt="{$this->title}">
+                <img src="{$imgSrc}" alt="{$title}">
                 {$titleDiv}
             </a>
 EOT;
