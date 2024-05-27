@@ -63,8 +63,8 @@ EOT;
         <div id="footer">
             <div class="copyright">
                 Databáze je určena jako výuková pomůcka. Databáze byla podpořena projektem Specifického vysokoškolského výzkumu na VUT v Brně č. 24930. <br>
-                &copy; <a href="http://www.niwi.cz">niwi</a> <?php echo conf('copyrightYear'); ?> |
-                <a href="http://gorazd.niwi.cz" title="Redakční systém Gorazd">RS Gorazd</a> |
+                &copy; <a href="https://www.niwi.cz">niwi</a> <?php echo conf('copyrightYear'); ?> |
+                <a href="https://gorazd.niwi.cz" title="Redakční systém Gorazd">RS Gorazd</a> |
                 <a class="toggle-login" rev="Skrýt přihlašovací box" href="">Přihlášení</a>
             </div>
             <?php
